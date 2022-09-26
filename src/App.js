@@ -23,11 +23,14 @@ function App() {
 
   return (
     <BrowserRouter>
-      <userContext.Provider value={context}>
+      <div className='h-screen overflow-scroll'>
+        {/* h-screen = h-[100vh] para darle el total de altura de la pantalla  */}
+        <userContext.Provider value={context}>
         <Header />
         <Main />
         <Footer />
       </userContext.Provider>
+      </div>
     </BrowserRouter>
   );
 }

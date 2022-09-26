@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 @layer base{
+    body{
+        height:100vh;
+        background: rgb(29,45,61);
+        background: linear-gradient(53deg, rgba(29,45,61,1) 0%, rgba(255,255,255,1) 20%, rgba(255,255,255,1) 74%, rgba(42,42,42,1) 96%);
+    }
     input{
          @apply bg-gray-200 rounded-md px-2 py-1 outline-none
     }

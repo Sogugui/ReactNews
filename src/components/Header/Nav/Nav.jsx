@@ -23,13 +23,13 @@ class Nav extends Component {
       </div>
       : null}}
     </userContext.Consumer>
-      <Link to="/form" className="flex gap-2 items-center">
+      <Link to="/form" className="flex gap-2 items-center text-white font-semibold text-md">
         <i className="fa-solid fa-address-card text-xl"></i>
         <span>Form</span>
       </Link>
-      <Link to="/list" className="flex gap-2 items-center">
+      <Link to="/list" className="flex gap-2 items-center text-white font-semibold text-md">
         <i className="fa-solid fa-file-lines text-xl"></i>
-        <span>List</span>
+        <span>News</span>
       </Link>
     </div>
 </nav>;
