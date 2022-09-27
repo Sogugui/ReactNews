@@ -16,13 +16,13 @@ class Form extends Component {
   this.image = React.createRef()
 
   this.state = {
+    redirect:false,
     abstract: "",
     section:"",
     byline:"",
     published_date:"",
     title:"",
-    image:"",
-    // sendForm:false
+    image:""
   }
 }
 
@@ -40,22 +40,26 @@ createNews = (e) => {
   console.log({createNew})
 
   //Consumer
-  const {news,addNews}= this.context
+  const {news,addNews, check}= this.context
   // let allNews=[]
+  this.setState({
+    redirect:true // 
+  })
+  check(true)
   let allNews = [...news,...[createNew]] //concatenar noticias del estado global + state de noticias del componente form
   console.log(allNews);
   
   addNews(allNews) //enviamos las news al contexto
   createNew=[]// convierte createNew en un array vacio
-
-  //vaciamos los state
+  
+  //vaciamos los states
   this.setState({
     abstract:"",
     section:"",
     byline:"",
     published_date:"",
     title:"",
-    image:""
+    image:"",
   })
     //vaciamos los input
     e.target.abstract.value=""
@@ -64,10 +68,7 @@ createNews = (e) => {
     e.target.published_date.value=""
     e.target.title.value=""
     e.target.image.value=""
-
-  // this.props.data(createNew)
-  this.setState({sendForm:true})
-
+    
 }
 
 handlerChange= () => {
@@ -85,8 +86,8 @@ handlerChange= () => {
 
 
 render() {
-  const { sendForm } = this.state;
-  if(sendForm) {
+  const { redirect } = this.state;
+  if(redirect) {
     <Navigate to = "/list"/> //redireccionar una vez que se hace submit del formulario
   }
 
@@ -132,7 +133,7 @@ render() {
             <input onChange={this.handlerChange} ref={this.image}type="text" id="image" name="image"  className="w-full flex justify-between"/>
           </div>
           
-            <button type="submit" className="bg-green-100 text-green-500 font-semibold tracking-wider">CREATE ARTICLE</button>
+            <button type="submit" className="bg-gray-200   text-orange-500 font-semibold tracking-wider">CREATE ARTICLE</button>
           
         </div>
       </div>

@@ -24,7 +24,7 @@ class ListNews extends Component {
     console.log("padre evento: ", e)
   }
   
-  getNews = async()=>{ //aca se deberia pintar las noticias tanto de la API de
+  getNews = async()=>{ //aca se deberia pintar las noticias tanto de la API de newYork + las del form
     //consumer
     let {addNews}=this.context
     const newsfetch = await axios.get(`https://api.nytimes.com/svc/topstories/v2/fashion.json?api-key=${process.env.REACT_APP_APIKEY}`) 
@@ -32,6 +32,7 @@ class ListNews extends Component {
     this.setState({
       news: response
     })
+    
     addNews(response)// envio de el fetch de noticias al context global
     
     
@@ -47,15 +48,30 @@ class ListNews extends Component {
   render() {
     return <div className="md:px-24 lg:px-36 flex flex-wrap justify-between gap-5">
       
+      {/* <newsContext.Consumer> */}
       {
         this.state.news.map( (article,key,deleteOne, ) => (
-        <Card 
+          <Card 
           article={article} 
           key={key} 
           deleteOne={deleteOne}
           />
         ))
       }
+        {/* <div>
+          {(context) => {
+            return <div className="flex justify-center items-center h-[20vh] gap-2">
+              {context.news.map( (article,key,deleteOne, ) => (
+                <div 
+                  article={article} 
+                  key={key} 
+                  deleteOne={deleteOne}
+                  />
+                ))}
+              </div> 
+          }}
+        </div>
+      </newsContext.Consumer> */}
       </div>;
   }
 }
