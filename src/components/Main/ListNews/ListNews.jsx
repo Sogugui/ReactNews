@@ -9,7 +9,7 @@ class ListNews extends Component {
   constructor(props){
     super(props)
     this.state={
-      news:[] //en este estado vamos a cargar las 5 noticias
+      fetchNews:[] //en este estado vamos a cargar las 5 noticias
 
     }
   }
@@ -20,29 +20,33 @@ class ListNews extends Component {
   }
 
   
-  deleteOne(e){
-    console.log("padre evento: ", e)
-  }
-  
   getNews = async()=>{ //aca se deberia pintar las noticias tanto de la API de newYork + las del form
     //consumer
     let {addNews}=this.context
     const newsfetch = await axios.get(`https://api.nytimes.com/svc/topstories/v2/fashion.json?api-key=${process.env.REACT_APP_APIKEY}`) 
     const response = await newsfetch.data.results.slice(0,5)//slice 0,5 limita las primeras 5 noticias
+    const totalNews=[...response,...this.props.data.news] 
+    console.log(totalNews);
     this.setState({
-      news: response
+      fetchNews: totalNews
     })
     
-    addNews(response)// envio de el fetch de noticias al context global
+    addNews(this.state.fetchNews)// envio de el fetch de noticias al context global
+   
     
     
 
     
   }
-  // deleteNews(i){
-  //   const remainingNew= this.state.news.filter( (one,j)=>i!==j )
-  //   this.setState({news:remainingNew})
-  // }
+  deleteOne(i){
+    let {addNews}=this.context
+    const remainingNew= this.state.news.filter( (newOne,j)=>i!==j )
+
+    let flatNews = remainingNew.flat(remainingNew.length)
+    // this.setState({fetchNews:remainingNew})
+    addNews(flatNews)
+    this.setState({ fetchNews: flatNews })
+  }
 
 
   render() {
@@ -50,28 +54,15 @@ class ListNews extends Component {
       
       {/* <newsContext.Consumer> */}
       {
-        this.state.news.map( (article,key,deleteOne, ) => (
+        this.state.fetchNews.map( (article,key,deleteOne) => (
           <Card 
           article={article} 
           key={key} 
-          deleteOne={deleteOne}
+          deleteOne={(oldOne)=>this.deleteOne(oldOne)}
           />
         ))
       }
-        {/* <div>
-          {(context) => {
-            return <div className="flex justify-center items-center h-[20vh] gap-2">
-              {context.news.map( (article,key,deleteOne, ) => (
-                <div 
-                  article={article} 
-                  key={key} 
-                  deleteOne={deleteOne}
-                  />
-                ))}
-              </div> 
-          }}
-        </div>
-      </newsContext.Consumer> */}
+       
       </div>;
   }
 }

@@ -9,7 +9,7 @@ import Footer from './components/Footer/Footer';
 function App() {
   const [user, setUser] = useState(""); //creacion de estado user y su fn setUser para modificar el estado
   const [news,setNews]= useState({})
-  const [checked, setChecked] = useState(false) //variable para evaluar si getNews debe sobreescribir o no.
+ // const [checked, setChecked] = useState(false) //variable para evaluar si getNews debe sobreescribir o no.
 
   //Funciones para el user
   const login = (name) => {
@@ -26,9 +26,9 @@ function App() {
       setNews(contextNews)
     }
 
-    const check = (boolean) =>{
-      setChecked(boolean)
-    }
+ //   const check = (boolean) =>{
+   //   setChecked(boolean)
+    //}
 
   const context= {
     user,
@@ -39,8 +39,8 @@ function App() {
   const contextNews ={
     news,
     addNews,
-    checked,
-    check
+   // checked,
+    //check
   }
 
   return (
